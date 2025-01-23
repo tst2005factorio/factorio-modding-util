@@ -1,7 +1,7 @@
 #!/bin/sh
 
 if [ $# -eq 0 ]; then
-	echo >&2 "Usage: $0"' 0.17|0.18'
+	echo >&2 "Usage: $0"' 0.17|0.18|1.0|1.1|2.0'
 	exit 1
 fi
 
@@ -23,5 +23,5 @@ fi
 [ -e "$ZIPNAME" ] || ln -s . "$ZIPNAME"
 
 cp -a "Packaging/$1/$infojson" "./info.json"
-find "$ZIPNAME/" -type f ! -path '*/.*' ! -name '*.zip' ! -name '[A-Z_]*' ! -path '*/[A-Z]*' ! -name 'info???*.json' |egrep -v '(\.old|\.new|changelog\.md)' |sort | zip "$ZIPNAME.zip" -@
+find "$ZIPNAME/" -type f ! -path '*/.*' ! -path '*/tmp/*' ! -name '*.zip' ! -name '[A-Z_]*' ! -path '*/[A-Z]*' ! -name 'info???*.json' |egrep -v '(\.old|\.new|changelog\.md)' |sort | zip "$ZIPNAME.zip" -@
 rm "$ZIPNAME" "./info.json"
